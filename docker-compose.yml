@@ -1,0 +1,28 @@
+services:
+  consumet:
+    image: ghcr.io/consumet/api:latest
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  server:
+    build: ./server
+    ports:
+      - "3001:3001"
+    environment:
+      - CONSUMET_URL=http://consumet:3000
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - PORT=3001
+    depends_on:
+      - consumet
+    volumes:
+      - ./server/anime_world.db:/app/anime_world.db
+    restart: unless-stopped
+
+  client:
+    build: ./client
+    ports:
+      - "5173:80"
+    depends_on:
+      - server
+    restart: unless-stopped
