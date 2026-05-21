@@ -9,6 +9,12 @@ export const removeFromWatchlist = (mal_id) => axios.delete(`${BASE}/watchlist/$
 export const sendChat = (message, history) =>
   axios.post(`${BASE}/chat`, { message, history }).then((r) => r.data);
 
+export const getEpisodes = (title) =>
+  axios.get(`${BASE}/stream/episodes/${encodeURIComponent(title)}`).then((r) => r.data);
+
+export const getStreamSources = (episodeId) =>
+  axios.get(`${BASE}/stream/sources/${encodeURIComponent(episodeId)}`).then((r) => r.data);
+
 export const searchAnime = (query) =>
   fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&limit=20`)
     .then((r) => r.json())

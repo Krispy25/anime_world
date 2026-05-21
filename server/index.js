@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const watchlistRouter = require("./routes/watchlist");
 const chatRouter = require("./routes/chat");
+const streamRouter = require("./routes/stream");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use("/api/watchlist", watchlistRouter);
 app.use("/api/chat", chatRouter);
+app.use("/api/stream", streamRouter);
 
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
